@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import TicketForm
 from .models import Ticket
@@ -41,3 +41,18 @@ def support_ticket_list(request):
     tickets = Ticket.objects.all()
     return render(request, 'tickets/support_ticket_list.html', {'tickets': tickets})
 
+@login_required
+def update_ticket_status(request, ticket_id):
+    if request.user.role != 'SUPPORT':
+        return redirect('login')
+
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == 'POST':
+        new_status = request.POST.get('status')
+        if new_status in ['UNDER_REVIEW', 'SOLVED']:
+            ticket.status = new_status
+            ticket.save()
+            return redirect('support_ticket_list')
+
+    return render(request, 'tickets/update_ticket_status.html', {'ticket': ticket})
