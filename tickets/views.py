@@ -16,7 +16,7 @@ def create_ticket(request):
             ticket = form.save(commit=False)
             ticket.created_by = request.user
             ticket.save()
-            template = loader.get-template('tickets/tickect-success.html')
+            template = loader.get_template('tickets/ticket_success.html')
             return HttpResponse(template.render({}, request))
             # return redirect('staff_dashboard')
     else:
