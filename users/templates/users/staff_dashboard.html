@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 <h2>Staff Dashboard</h2>
 <p>Welcome {{ request.user.username }}! You can submit and track your IT support tickets here.</p>
 <a href="{% url 'create_ticket' %}">Create New Ticket</a> <br>
