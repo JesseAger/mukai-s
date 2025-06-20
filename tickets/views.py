@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import TicketForm
 from .models import Ticket
+from django.template import loader
+from django.http import HttpResponse
 
 @login_required
 def create_ticket(request):
@@ -14,7 +16,9 @@ def create_ticket(request):
             ticket = form.save(commit=False)
             ticket.created_by = request.user
             ticket.save()
-            return redirect('staff_dashboard')
+            template = loader.get-template('tickets/tickect-success.html')
+            return HttpResponse(template.render({}, request))
+            # return redirect('staff_dashboard')
     else:
         form = TicketForm()
 
