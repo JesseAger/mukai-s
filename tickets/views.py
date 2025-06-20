@@ -53,6 +53,12 @@ def update_ticket_status(request, ticket_id):
         if new_status in ['UNDER_REVIEW', 'SOLVED']:
             ticket.status = new_status
             ticket.save()
+            from notifications.models import Notification
+            Notification.objects.create(
+                user=ticket.created_by,
+                ticket=ticket,
+                message=f"Your ticket '{ticket.title}' status changed to {ticket.status}."
+            )
             return redirect('support_ticket_list')
 
     return render(request, 'tickets/update_ticket_status.html', {'ticket': ticket})
