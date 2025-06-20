@@ -1,0 +1,11 @@
+<h2>Your Tickets</h2>
+<ul>
+  {% for ticket in tickets %}
+    <li>
+      <strong>{{ ticket.title }}</strong> — {{ ticket.status }} ({{ ticket.created_at|date:"Y-m-d H:i" }})
+    </li>
+  {% empty %}
+    <li>No tickets submitted yet.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'create_ticket' %}">Submit a new ticket</a>

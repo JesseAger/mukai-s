@@ -1,0 +1,11 @@
+<h2>All Tickets (Support View)</h2>
+<ul>
+  {% for ticket in tickets %}
+    <li>
+      <strong>{{ ticket.title }}</strong> by {{ ticket.created_by.username }} — {{ ticket.status }}
+      [<a href="{% url 'update_ticket_status' ticket.id %}">Update</a>]
+    </li>
+  {% empty %}
+    <li>No tickets found.</li>
+  {% endfor %}
+</ul>

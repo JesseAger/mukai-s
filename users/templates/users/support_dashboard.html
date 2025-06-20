@@ -1,3 +1,6 @@
 <h2>IT Support Dashboard</h2>
 <p>Welcome {{ request.user.first_name }}! You can view and manage all support tickets.</p>
+<a href="{% url 'support_ticket_list' %}">View All Tickets</a>
+<br>
+
 <a href="{% url 'logout' %}">Logout</a>

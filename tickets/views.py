@@ -23,3 +23,21 @@ def create_ticket(request):
         form = TicketForm()
 
     return render(request, 'tickets/create_ticket.html', {'form': form})
+
+@login_required
+def staff_ticket_list(request):
+    if request.user.role != 'STAFF':
+        return redirect('login')
+
+    tickets = request.user.tickets.all()
+    return render(request, 'tickets/staff_ticket_list.html', {'tickets': tickets})
+
+
+@login_required
+def support_ticket_list(request):
+    if request.user.role != 'SUPPORT':
+        return redirect('login')
+
+    tickets = Ticket.objects.all()
+    return render(request, 'tickets/support_ticket_list.html', {'tickets': tickets})
+
