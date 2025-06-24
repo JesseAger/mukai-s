@@ -1,15 +1,305 @@
-#logo{
-    border-radius: 5px;
-    width: 30px;
-    height: 30px;
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family: sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 80px; /* Account for fixed header */
 }
 
-.header{
+/* Header styles with original class name */
+.header {
+    background: #2d1b69;
+    padding: 1rem 2rem;
     display: flex;
-    align-items: normal;
-    padding: 3px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 20px rgba(45, 27, 105, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 80px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Scroll effect - reducing opacity */
+.header.scrolled {
+    background: rgba(45, 27, 105, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 2px 25px rgba(45, 27, 105, 0.4);
+}
+
+/* Logo styles with original ID */
+#logo {
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+}
+
+/* Header h2 styling */
+.header h2 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    margin-left: 1rem;
+    white-space: nowrap;
+}
+
+/* Navigation container */
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Link styling maintaining original structure */
+.header a {
+    color: white;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* First link (Sign Up) styling */
+.header a:first-of-type {
+    background: #e63946;
+    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+    border: 2px solid transparent;
+}
+
+.header a:first-of-type:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+    background: #ff4757;
+}
+
+/* Second link (Login) styling */
+.header a:last-of-type {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.header a:last-of-type:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Shimmer effect for links */
+.header a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.header a:hover::before {
+    left: 100%;
+}
+
+/* Mobile hamburger menu styles */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: rgba(45, 27, 105, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 2rem;
+    z-index: 999;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu.active {
+    transform: translateY(0);
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .header {
+        padding: 0.8rem 1rem;
+        min-height: 70px;
+    }
+
+    .header h2 {
+        font-size: 1.2rem;
+        margin-left: 0.5rem;
+    }
+
+    #logo {
+        height: 40px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .header {
+        padding: 0.6rem 0.8rem;
+        min-height: 60px;
+    }
+
+    .header h2 {
+        font-size: 1rem;
+        margin-left: 0.3rem;
+    }
+
+    #logo {
+        height: 35px;
+    }
+
+    .mobile-menu {
+        top: 60px;
+        padding: 1.5rem;
+    }
+}
+
+/* Large screens - prevent overflow */
+@media (min-width: 1200px) {
+    .header {
+        padding: 1.2rem 3rem;
+    }
+    
+    .header h2 {
+        font-size: 1.8rem;
+    }
+    
+    #logo {
+        height: 60px;
+    }
+    
+    .header a {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Smooth entrance animation */
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header {
+    animation: slideInFromTop 0.6s ease-out;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Additional utility classes for scroll effects */
+.header.transparent {
+    background: rgba(45, 27, 105, 0.3);
+}
+
+.header.opaque {
+    background: #2d1b69;
 }

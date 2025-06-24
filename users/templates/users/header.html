@@ -1,10 +1,14 @@
-{% load static %}
+ {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
 
 <div class="header">
-    <img src="{% static "logo.jpg" %}" id="logo" alt="logo" />
-    <h2>Optimum IT Support</h2>
-    <a href= {% url "signup" %}> Sign Up</a>
-    <a href= {% url "login" %}>Login</a>
+        <div class="logo-section">
+            <img src="{% static "logo.jpg" %}" id="logo" alt="logo" />
+            <h2>Optimum IT Support</h2>
+        </div>
+    <div class ="nav-links">
+        <a href= {% url "signup" %}> Sign Up</a>
+        <a href= {% url "login" %}>Login</a>
+    </div>
 </div>
