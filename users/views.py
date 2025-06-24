@@ -7,6 +7,10 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+def homepage(request):
+    context= {}
+    return render(request, 'users/home.html', context)
+
 def signup_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
