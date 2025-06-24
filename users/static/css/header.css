@@ -1,0 +1,15 @@
+#logo{
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+body{
+    font-family: sans-serif;
+}
+
+.header{
+    display: flex;
+    align-items: normal;
+    padding: 3px;
+}
