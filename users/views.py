@@ -83,3 +83,13 @@ def manage_users(request):
     User = get_user_model()
     users = User.objects.exclude(id=request.user.id)  # exclude self
     return render(request, 'users/manage_users.html', {'users': users})
+
+@login_required
+def delete_user(request, user_id):
+    if request.user.role != 'ADMIN':
+        return redirect('login')
+
+    User = get_user_model()
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect('manage_users')
