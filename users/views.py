@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.http import HttpResponse
@@ -7,7 +7,6 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from notifications.views import get_user_notifications
-
 
 def homepage(request):
     context= {}
@@ -75,3 +74,12 @@ def staff_dashboard(request):
     
     notifications = get_user_notifications(request.user)
     return render(request, 'users/staff_dashboard.html', {'notifications': notifications})
+
+@login_required
+def manage_users(request):
+    if request.user.role != 'ADMIN':
+        return redirect('login')
+
+    User = get_user_model()
+    users = User.objects.exclude(id=request.user.id)  # exclude self
+    return render(request, 'users/manage_users.html', {'users': users})

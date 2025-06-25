@@ -22,7 +22,7 @@ def create_ticket(request):
     else:
         form = TicketForm()
 
-    return render(request, 'tickets/create_ticket.html', {'form': form})
+    return render(request, 'users/staff_dashboard.html', {'form': form})
 
 @login_required
 def staff_ticket_list(request):
@@ -62,3 +62,22 @@ def update_ticket_status(request, ticket_id):
             return redirect('support_ticket_list')
 
     return render(request, 'tickets/update_ticket_status.html', {'ticket': ticket})
+
+@login_required
+def support_ticket_list(request):
+    if request.user.role != 'SUPPORT':
+        return redirect('login')
+
+    tickets = Ticket.objects.all()
+
+    # Filter
+    status = request.GET.get('status')
+    if status:
+        tickets = tickets.filter(status=status)
+
+    query = request.GET.get('q')
+    if query:
+        tickets = tickets.filter(title__icontains=query)
+
+    return render(request, 'tickets/support_ticket_list.html', {'tickets': tickets})
+

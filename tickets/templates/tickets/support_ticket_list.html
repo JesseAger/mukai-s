@@ -1,11 +1,23 @@
 <h2>All Tickets</h2>
+
+<form method="get">
+  <input type="text" name="q" placeholder="Search by title" value="{{ request.GET.q }}">
+  <select name="status">
+    <option value="">All</option>
+    <option value="PENDING">Pending</option>
+    <option value="UNDER_REVIEW">Under Review</option>
+    <option value="SOLVED">Solved</option>
+  </select>
+  <button type="submit">Filter</button>
+</form>
+
 <ul>
   {% for ticket in tickets %}
     <li>
-      <strong>{{ ticket.title }}</strong> by {{ ticket.created_by.username }} — {{ ticket.status }}
+      <strong>{{ ticket.title }}</strong> — {{ ticket.status }}
       [<a href="{% url 'update_ticket_status' ticket.id %}">Update</a>]
     </li>
   {% empty %}
-    <li>No tickets found.</li>
+    <li>No matching tickets</li>
   {% endfor %}
 </ul>
