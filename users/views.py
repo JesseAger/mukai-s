@@ -56,13 +56,17 @@ def staff_dashboard(request):
 def support_dashboard(request):
     if request.user.role != 'SUPPORT':
         return redirect('login')
-    return render(request, 'users/support_dashboard.html')
+    
+    notifications = get_user_notifications(request.user)
+    return render(request, 'users/support_dashboard.html', {'notifications':notifications})
 
 @login_required
 def admin_dashboard(request):
     if request.user.role != 'ADMIN':
         return redirect('login')
-    return render(request, 'users/admin_dashboard.html')
+    
+    notifications = get_user_notifications(request.user)
+    return render(request, 'users/admin_dashboard.html', {'notifications':notifications})
 
 @login_required
 def staff_dashboard(request):

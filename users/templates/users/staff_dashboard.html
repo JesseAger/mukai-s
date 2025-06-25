@@ -12,5 +12,23 @@
     <a href="{% url 'create_ticket' %}">Create New Ticket</a> <br>
     <a href="{% url 'staff_ticket_list' %}">My Tickets</a>
     <br>
+    <h3>Notifications</h3>
+<ul>
+  {% for note in notifications %}
+    <li {% if not note.is_read %}style="font-weight: bold;"{% endif %}>
+      {{ note.message }} — {{ note.created_at|date:"Y-m-d H:i" }}
+      <form method="post" action="{% url 'mark_notification_read' note.id %}" style="display:inline">
+        {% csrf_token %}
+        {% if not note.is_read %}
+          <button type="submit">Mark as read</button>
+        {% endif %}
+      </form>
+    </li>
+  {% empty %}
+    <li>No notifications</li>
+  {% endfor %}
+</ul>
+
+<br>
     <a href="{% url 'logout' %}">Logout</a>
 </nav>
