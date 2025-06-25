@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from notifications.views import get_user_notifications
+
 
 def homepage(request):
     context= {}
@@ -61,3 +63,11 @@ def admin_dashboard(request):
     if request.user.role != 'ADMIN':
         return redirect('login')
     return render(request, 'users/admin_dashboard.html')
+
+@login_required
+def staff_dashboard(request):
+    if request.user.role != 'STAFF':
+        return redirect('login')
+    
+    notifications = get_user_notifications(request.user)
+    return render(request, 'users/staff_dashboard.html', {'notifications': notifications})
