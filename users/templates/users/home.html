@@ -1,7 +1,52 @@
-<div class="header">
-    {% include "users/header.html" %}
+{% extends "users/base.html" %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+{% comment %} {% include "users/header.html" %} {% endcomment %}
+
+{% block content %}
+
+<div class="head">
+    <h2>
+        Optimum IT Support System
+    </h2>
+    <h4>Precision meets efficiency</h4>
 </div>
 
-<div class="footer">
-    {% include "users/footer.html" %}
+<div class="main-1">
+    <h1>Services Offered</h1> <br>
+        <div class="Services">
+            <div class="card" style="width: fit-content;">
+                <img src="{% static "pics/network.jpg" %}" id="logo" alt="logo" />
+                <div class="card-body">
+                    <h5 class="card-title">Network Solutions</h5>
+                    <p class="card-text">offering network diagnostics and hardware solutions</p>
+                    {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">PC Software update</h5>
+                    <p class="card-text">Update of PC application Software</p>
+                    {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+
+                <div class="card-body">
+                    <h5 class="card-title">PC and Peripheral Devices connections and diagnostics</h5>
+                    <p class="card-text"></p>
+                    {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+                </div>
+            </div>
+        </div>
 </div>
+
+{% endblock %}
+
+{% comment %} {% include "users/footer.html" %} {% endcomment %}

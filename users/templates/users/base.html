@@ -1,0 +1,18 @@
+<!DOCTYPE Html>
+<html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<body>
+    <header>
+	{% include "users/header.html" %}
+    </header>
+
+	{% block content %}	
+
+	{% endblock %}
+
+    <footer>
+	{% include "users/footer.html" %}
+    </footer>
+</body>
+</html>
