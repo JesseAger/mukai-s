@@ -1,4 +1,4 @@
-{% include "users/header.html" %}
+{% extends 'users/base.html' %}
 
 <h2>IT Support Dashboard</h2>
 <p>Welcome {{ request.user.first_name }}! You can view and manage all support tickets.</p>

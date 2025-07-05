@@ -1,3 +1,5 @@
+{% extends "users/base.html" %}
+
 <h2>Update Ticket: {{ ticket.title }}</h2>
 <form method="post">
     {% csrf_token %}
